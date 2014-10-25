@@ -1,0 +1,197 @@
+#
+# {{ ansible_managed }}
+# Example mon.cf file
+#
+
+#
+# Global options
+#
+alertdir		= /usr/lib/mon/alert.d
+mondir			= /usr/lib/mon/mon.d
+logdir			= /var/log/mon
+historicfile	= /var/log/mon/history.log
+maxprocs		= 20
+histlength		= 100
+randstart		= 60s
+dtlogging		= yes
+dtlogfile		= dtlog
+
+#
+# Define groups of hosts to monitor
+#
+hostgroup localhost {{ mon_hostgroup_localhost }}
+
+#hostgroup www      {{ mon_hostgroup_www }}
+
+hostgroup fs       {{ mon_hostgroup_fs }}
+
+hostgroup shell    {{ mon_hostgroup_shell }}
+
+hostgroup ntp      {{ mon_hostgroup_ntp }}
+
+hostgroup dns      {{ mon_hostgroup_dns }}
+
+hostgroup {{ mon_custom_group }} {{ mon_hostgroup_custom_group }}
+
+#
+# Define watches
+#
+watch {{ mon_custom_group }}
+	service ping
+		description Responses to ping
+		interval 5m
+		monitor fping.monitor
+		period wd {Mon-Fri} hr {7am-10pm}
+			alert mail.alert {{ mon_weekly_email }}
+			alertevery 1h
+		period wd {Sat-Sun}
+			alert mail.alert {{ mon_weekend_email }}
+        service http
+                description HTTP service
+                interval 10m
+                monitor http.monitor -p 8080
+                period
+                        numalerts 10
+        service smtp
+                description SMTP service
+                interval 10m
+                monitor smtp.monitor -t 60
+                period
+                        numalerts 10
+        service telnet
+                description TELNET service
+                interval 10m
+                monitor telnet.monitor
+                period wd {Mon-Fri} hr {7am-10pm}
+                        alertevery 1h
+                        alertafter 2 30m
+
+watch localhost
+        service ping
+                description Responses to ping
+                interval 5m
+                monitor fping.monitor
+                period wd {Mon-Fri} hr {7am-10pm}
+                        alert mail.alert {{ mon_weekly_email }}
+                        alertevery 1h
+                period wd {Sat-Sun}
+                        alert mail.alert {{ mon_weekend_email }}
+	service http
+		description HTTP service varnis at port 80
+		interval 10m
+		monitor http.monitor
+		period
+			numalerts 10
+			alert mail.alert {{ mon_admin_email }}
+			upalert mail.alert {{ mon_weekend_email }}
+	service smtp
+		description SMTP service
+		interval 10m
+		monitor smtp.monitor -t 60
+		period
+			numalerts 10
+			alert mail.alert {{ mon_admin_email }}
+			upalert mail.alert {{ mon_weekend_email }}
+	service telnet
+		description TELNET service
+		interval 10m
+		monitor telnet.monitor
+		period wd {Mon-Fri} hr {7am-10pm}
+			alertevery 1h
+			alertafter 2 30m
+			alert mail.alert {{ mon_weekend_email }}
+
+#; Our web servers.
+#watch www
+# service wwwmon
+#  description monitor www services
+#  interval 5m
+#  monitor http_t.monitor -l /var/log/mon/www.log -T 15.0 -t 100
+#   period wd {Sun-Sat}
+#    alert mail.alert -S {{ mon_weekend_email }}
+#     alertafter 3 20m
+#     alertevery 1h
+#    upalert mail.alert -S "wwwmon/www: ok" {{ mon_weekend_email }}
+#     upalertafter 15m
+
+#; Shell servers - check if they're up.
+watch shell
+ service shellicmp
+  description monitor shell servers with icmp
+  interval 1m
+  monitor fping.monitor
+   period wd {Sun-Sat}
+    alert mail.alert {{ mon_weekend_email }}
+     alertevery 30m
+     alertafter 3 7m
+    upalert mail.alert -S "shellmon/shell: ok" {{ mon_weekend_email }}
+     upalertafter 10m
+   period LOGFILE: wd {Sun-Sat}
+    alert file.alert -d /var/log/mon shellicmp.log
+ service shellssh
+  description check ssh on shell servers
+  interval 8m
+  monitor tcp.monitor -p 22
+   period wd {Sun-Sat}
+    alert mail.alert {{ mon_weekend_email }}
+     alertevery 90m
+     alertafter 2 30m
+    upalert mail.alert -S "shellssh/shell: ok" {{ mon_weekend_email }}
+     upalertafter 20m
+   period LOGFILE: wd {Sun-Sat}
+    
+#; Watch local disk space on the file server.
+watch fs
+ service fsmon
+  description file system storage monitoring
+  interval 5m
+  monitor freespace.monitor /:20% /jenkins:10% /var:15% /usr:20% /usr/local:20% /tmp:10%;;
+   period wd {Sun-Sat}
+    alert mail.alert {{ mon_weekend_email }}
+     alertevery 2h
+    upalert mail.alert -S "fsmon/fs: ok" {{ mon_weekend_email }}
+     upalertafter 10m
+   period LOGFILE: wd {Sun-Sat}
+    alert file.alert -d /var/log/mon fsmon.log
+
+#; DNS Servers.
+watch dns
+ service dnsicmp
+  description ping the dns servers
+  interval 4m
+  monitor fping.monitor
+   period wd {Sun-Sat}
+    alert mail.alert {{ mon_weekend_email }}
+     alertevery 1h
+     alertafter 3 16m
+    upalert mail.alert -S "dnsicmp/dns: ok" {{ mon_weekend_email }}
+     upalertafter 10m
+   period LOGFILE: wd {Sun-Sat}
+    alert file.alert -d /var/log/mon dns.log
+
+#; Network Time Servers
+watch ntp
+ service ntpicmp
+  description icmp monitoring of ntp servers
+  interval 5m
+  monitor fping.monitor
+   period wd {Sun-Sat}
+    alert mail.alert {{ mon_weekend_email }}
+     alertevery 2h
+     alertafter 3 20m
+    upalert mail.alert -S "ntpicmp/ntp: ok" {{ mon_weekend_email }}
+     upalertafter 10m
+   period LOGFILE: wd {Sun-Sat}
+    alert file.alert -d /var/log/mon ntp.log
+# service ntpmon
+#  description check ntp servers status
+#  interval 5m
+#  monitor ntp.monitor -s 3
+#   period wd {Sun-Sat}
+#    alert mail.alert {{ mon_weekend_email }}
+#     alertevery 2h
+#     alertafter 3 25m
+#    upalert mail.alert -S "ntpmon/ntp: ok" {{ mon_weekend_email }}
+#     upalertafter 10m
+#   period LOGFILE: wd {Sun-Sat}
+#    alert file.alert -d /var/log/mon ntp.log

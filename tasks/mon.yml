@@ -1,0 +1,51 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+- name: mon | Check user  
+  user: name={{mon_owner}} state=present
+  
+- name: mon | Check user home directory
+  stat: path={{mon_owner_home}}
+  register: home_present
+
+- debug: msg=" mon | Path exists and is a directory"
+  when: home_present.stat.isdir is defined and home_present.stat.isdir == true 
+
+- name: Install mon perl tools
+  apt: pkg={{ item }} update_cache=yes state={{ mon_pkg_state }}
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags: package
+  with_items:
+   - libfilesys-diskspace-perl
+   - libnet-telnet-perl
+   - fping
+    
+#- name: Install mon perl package
+#  command: sudo cpan install {{ item }}
+#  with_items:
+#    - Filesys::DiskSpace
+#    - Net::Telnet
+#    - Net::LDAPapi    
+#    - DBD::mysql 
+#    - Convert::BER
+#    - SNMP::Session
+
+- name: Copy mon configuration
+  template: src=mon.cf.j2 dest={{ mon_config_directory }}/mon.cf mode=0777
+  tags: mon
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: mon | Install mon
+  apt: pkg={{ item }} update_cache=yes state={{ mon_pkg_state }}
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags: mon_setup
+  with_items:
+   - mon
+
+- name: mon | Start the mon service
+  service: name=mon state=started enabled=true
+  tags: service
+
+- name: mon | Cleanup temporary directory
+  file: name={{ tempdir.stdout }} state=absent
+  tags: mon_setup
