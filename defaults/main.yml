@@ -13,6 +13,7 @@ mon_owner_home: "{{ home }}"
 mon_home: "{{ mon_owner_home }}/.mon"
 
 mon_base_dir: "/etc/mon"
+mon_pkg_state: present
 
 mon_config_directory: "/etc/mon"
 mon_admin_email: "alban.andrieu@google.com"
