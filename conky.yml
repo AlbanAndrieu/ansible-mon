@@ -1,9 +1,0 @@
----
-- hosts: all
-  sudo: true
-  roles:
-    - ansible-mon
-     
-#  vars:     
-#       user: root
-#       home: "/root"
