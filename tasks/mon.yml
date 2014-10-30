@@ -30,17 +30,17 @@
 #    - Convert::BER
 #    - SNMP::Session
 
-- name: Copy mon configuration
-  template: src=mon.cf.j2 dest={{ mon_config_directory }}/mon.cf mode=0777
-  tags: mon
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-
 - name: mon | Install mon
   apt: pkg={{ item }} update_cache=yes state={{ mon_pkg_state }}
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags: mon_setup
   with_items:
    - mon
+
+- name: Copy mon configuration
+  template: src=mon.cf.j2 dest={{ mon_config_directory }}/mon.cf mode=0777
+  tags: mon
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: mon | Start the mon service
   service: name=mon state=started enabled=true
