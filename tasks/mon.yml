@@ -45,7 +45,3 @@
 - name: mon | Start the mon service
   service: name=mon state=started enabled=true
   tags: service
-
-- name: mon | Cleanup temporary directory
-  file: name={{ tempdir.stdout }} state=absent
-  tags: mon_setup
