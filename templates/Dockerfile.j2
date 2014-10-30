@@ -9,7 +9,7 @@ VOLUME      [{{ docker_volume_directory }}]
 MAINTAINER  Alban Andrieu "https://github.com/AlbanAndrieu"
 
 ENV			DEBIAN_FRONTEND noninteractive
-ENV         MON_HOME {{ mon_home_dir }}
+ENV         MON_HOME {{ mon_base_dir }}
 
 # Working dir
 WORKDIR {{ docker_working_directory }}
