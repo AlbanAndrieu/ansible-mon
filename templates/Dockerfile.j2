@@ -9,7 +9,7 @@ VOLUME      [{{ docker_volume_directory }}]
 MAINTAINER  Alban Andrieu "https://github.com/AlbanAndrieu"
 
 ENV			DEBIAN_FRONTEND noninteractive
-ENV         JENKINS_HOME {{ jenkins_home_dir }}
+ENV         MON_HOME {{ mon_home_dir }}
 
 # Working dir
 WORKDIR {{ docker_working_directory }}
@@ -42,7 +42,7 @@ RUN         ansible-playbook $WORKDIR/playbook.yml -i $WORKDIR/hosts -c local
 #RUN         mkdir -p /var/run/sshd
             
 EXPOSE      22
-ENTRYPOINT  ["/etc/init.d/jenkins-swarm-client"]
+ENTRYPOINT  ["/etc/init.d/mon"]
 #ENTRYPOINT ["java", "-jar", "{{ jenkins_home_dir }}/swarm-client-1.9-jar-with-dependencies.jar"]
 CMD /usr/sbin/sshd -D
 #CMD ["-g", "deamon off;"]

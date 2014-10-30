@@ -41,7 +41,7 @@ ansigenome_info:
       github: 'AlbanAndrieu'
 
   synopsis: |
-    ``debops.monit`` role allows you to install and configure `Mon`_ service
+    ``alban.andrieu.monit`` role allows you to install and configure `Mon`_ service
     which can be used to monitor services on hosts.
     
     Alerts can be sent to an e-mail address (by default
