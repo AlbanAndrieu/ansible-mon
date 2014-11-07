@@ -1,85 +1,82 @@
-ansible-mon
-====================
+## mon
 
-A role for installing mon.
+[![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-mon.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-mon) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-mon.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-mon/tree/master) [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.mon-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/2115) [![Platforms](http://img.shields.io/badge/platforms-debian%20/%20ubuntu-lightgrey.svg?style=flat)](#)
 
-[![Build Status](https://api.travis-ci.org/AlbanAndrieu/ansible-mon.png?branch=master)](https://travis-ci.org/AlbanAndrieu/ansible-mon)
-[![Galaxy](http://img.shields.io/badge/galaxy-mon-blue.svg?style=flat-square)](https://galaxy.ansible.com/list#/roles/0000)
-[![Tag](http://img.shields.io/github/tag/AlbanAndrieu/ansible-mon.svg?style=flat-square)]()
+``alban.andrieu.monit`` role allows you to install and configure `Mon`_ service
+which can be used to monitor services on hosts.
 
+Alerts can be sent to an e-mail address (by default
+``monitoring@<your-domain>``.
 
-.. |Travis CI| image:: http://img.shields.io/travis/AlbanAndrieu/ansible-mon.png?branch=master
-   :target: http://travis-ci.org/AlbanAndrieu/ansible-mon
+.. _Mon: http://linux-ha.org/mon
 
-.. |test-suite| image:: http://img.shields.io/badge/test--suite-ansible--mon-blue.svg?style=flat
-   :target: https://github.com/debops/test-suite/tree/master/ansible-monit/
+### Installation
 
-.. |Ansible Galaxy| image:: http://img.shields.io/badge/galaxy-mon-blue.svg?style=flat
-   :target: https://galaxy.ansible.com/list#/roles/0000
-
-.. |Tag| image:: http://img.shields.io/github/tag/AlbanAndrieu/ansible-mon.svg?style=flat-square)
-   :target: 
-
-Installation
-~~~~~~~~~~~~
-
-This role requires at least Ansible ``v1.7.0``. To install it, run:
-
-::
+This role requires at least Ansible `v1.7.0`. To install it, run:
 
     ansible-galaxy install alban.andrieu.mon
+
+
+
+### Role variables
+
+List of default variables available in the inventory:
+
+```yaml
+    ---
+    mon_enabled: yes                       # Enable module
+    # Repository states: present or absent
+    mon_repository_state: present
     
-## Actions
-
-- Ensures that mon is installed (using `apt`)
-
-Usage example
-------------
-
-    - name: Install mon
-      hosts: workstation
-      remote_user: root
+    #user: 'albandri' #please override me
+    user: "{{ lookup('env','USER') }}"
+    mon_owner: "{{ user }}"
+    mon_group: "{{ mon_owner }}"
+    #home: '~' #please override me
+    home: "{{ lookup('env','HOME') }}"
+    mon_owner_home: "{{ home }}"
+    mon_home: "{{ mon_owner_home }}/.mon"
     
-      roles:
-        - mon      
-      
-      vars:      
-          mon_localhost : "albandri"
-          mon_custom_group: "nabla"        
-          mon_admin_email: "alban.andrieu@free.fr"
-          mon_weekly_email: "team@free.fr"
-          user: root
-          home: "/root"
+    mon_base_dir: "/etc/mon"
+    mon_pkg_state: present
+    
+    mon_config_directory: "/etc/mon"
+    mon_admin_email: "alban.andrieu@google.com"
+    mon_weekly_email: "team@google.com"
+    mon_weekend_email: "{{ mon_admin_email }}"
+    
+    mon_localhost : "albandri"
+    mon_custom_group: "test"   
+    
+    #mon_hostgroup_custom_group : "server1 server2"
+    mon_hostgroup_custom_group : "{{ mon_localhost }}"
+    mon_hostgroup_localhost : "{{ mon_localhost }}"
+    mon_hostgroup_www : "{{ mon_localhost }}"
+    mon_hostgroup_fs : "{{ mon_localhost }}"
+    mon_hostgroup_shell : "{{ mon_localhost }}"
+    mon_hostgroup_ntp : "{{ mon_localhost }}"
+    mon_hostgroup_dns : "{{ mon_localhost }}"
+    
+    docker_files_generated_directory: "./"
+    docker_files_enable: no
+    docker_volume_directory: "{{ mon_base_dir }}"
+    docker_working_directory: "/home/vagrant"
+    docker_image_name: "nabla/ansible-mon"
+```
 
-Requirements
-------------
 
-none
 
-Dependencies
-------------
 
-none
+### Authors and license
 
-License
--------
+`mon` role was written by:
+- [Alban Andrieu](fr.linkedin.com/in/nabla/) | [e-mail](mailto:alban.andrieu@free.fr) | [Twitter](https://twitter.com/AlbanAndrieu) | [GitHub](https://github.com/AlbanAndrieu)
+- License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
 
-License: `GPLv3 <https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29>`_
+### Feedback, bug-reports, requests, ...
 
-Authors and license
-~~~~~~~~~~~~~~~~~~~
+Are [welcome](https://github.com/AlbanAndrieu/ansible-mon/issues>)!
 
-``mon`` role was written by:
+***
 
-- Alban Andrieu | `e-mail <mailto:alban.andrieu@free.fr>`_ | `Twitter <https://twitter.com/AlbanAndrieu>`_ | `GitHub <https://github.com/AlbanAndrieu>`_
-
-#### Feedback, bug-reports, requests, ...
-
-Are [welcome](https://github.com/AlbanAndrieu/ansible-mon/issues)!
-
-****
-
-README generated by `ansigenome`_.
-
-.. _Ansigenome: https://github.com/nickjj/ansigenome/
-
+README generated by [Ansigenome](https://github.com/nickjj/ansigenome/).

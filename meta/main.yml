@@ -1,12 +1,11 @@
 ---
-
-dependencies:
+dependencies: []
 
 galaxy_info:
-  author: 'Alban Andrieu'
+  author: Alban Andrieu
   description: 'Install and configure Mon service'
-  company: 'Nabla'
-  license: 'GNU General Public License v3'
+  company: Nabla
+  license: GPLv3
   min_ansible_version: '1.7.0'
   platforms:
   - name: Ubuntu
@@ -25,17 +24,18 @@ galaxy_info:
   - system
 
 ansigenome_info:
-  github_url: "https://github.com/AlbanAndrieu/ansible-mon"
-  git_branch: "master"
-  galaxy_id: "0000"
+#  github_url: "https://github.com/AlbanAndrieu/ansible-mon"
+#  git_branch: "master"
+  galaxy_id: '2115'
+  galaxy_user:  'alban.andrieu'
 
   travis: True
 
-  license_url: 'https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)'
+#  license_url: 'https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)'
 
   authors:
     - name:  'Alban Andrieu'
-      url: ''
+      url: 'fr.linkedin.com/in/nabla/'
       email: 'alban.andrieu@free.fr'
       twitter: 'AlbanAndrieu'
       github: 'AlbanAndrieu'
