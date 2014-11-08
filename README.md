@@ -1,8 +1,8 @@
 ## mon
 
-[![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-mon.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-mon) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-mon.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-mon/tree/master) [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.mon-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/2115) [![Platforms](http://img.shields.io/badge/platforms-debian%20/%20ubuntu-lightgrey.svg?style=flat)](#)
+[![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-mon.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-mon) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-mon.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-mon/tree/master) [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.mon-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/2130) [![Platforms](http://img.shields.io/badge/platforms-debian%20/%20ubuntu-lightgrey.svg?style=flat)](#)
 
-``alban.andrieu.monit`` role allows you to install and configure [Mon](http://linux-ha.org/mon) service
+``alban.andrieu.monit`` role allows you to install and configure [Mon](http://linux-ha.org/mon) monitoring service
 which can be used to monitor services on hosts.
 
 Alerts can be sent to an e-mail address (by default
@@ -10,7 +10,9 @@ Alerts can be sent to an e-mail address (by default
 
 ### Installation
 
-This role requires at least Ansible `v1.7.0`. To install it, run:
+This role requires at least Ansible `v1.7.0`. 
+
+To install it, run:
 
     ansible-galaxy install alban.andrieu.mon
 
