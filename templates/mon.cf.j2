@@ -183,17 +183,17 @@ watch localhost
 			alert mail.alert {{ mon_weekend_email }}
 
 #; Our web servers.
-#watch www
-# service wwwmon
-#  description monitor www services
-#  interval 5m
-#  monitor http_t.monitor -l /var/log/mon/www.log -T 15.0 -t 100
-#   period wd {Sun-Sat}
-#    alert mail.alert -S {{ mon_weekend_email }}
-#     alertafter 3 20m
-#     alertevery 1h
-#    upalert mail.alert -S "wwwmon/www: ok" {{ mon_weekend_email }}
-#     upalertafter 15m
+watch www
+ service wwwmon
+  description monitor www services
+  interval 5m
+  monitor http_t.monitor -l /var/log/mon/www.log -T 15.0 -t 100
+   period wd {Sun-Sat}
+    alert mail.alert -S {{ mon_weekend_email }}
+     alertafter 3 20m
+     alertevery 1h
+    upalert mail.alert -S "wwwmon/www: ok" {{ mon_weekend_email }}
+     upalertafter 15m
 
 #; Shell servers - check if they're up.
 watch shell
