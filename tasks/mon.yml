@@ -42,6 +42,11 @@
   tags: mon
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
+- name: Copy mon user configuration
+  template: src=user.cf.j2 dest={{ mon_config_directory }}/user.cf mode=0777
+  tags: mon
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and mon_user_enabled
+  
 - name: mon | Start the mon service
   service: name=mon state=started enabled=true
   tags: service

@@ -1,19 +1,17 @@
 #
+# {{ ansible_managed }}
 # Example mon.cf file
-#
-# Author: Dario Minnucci <midget@debian.org>
-# Date: Mon, 07 Sep 2009 13:57:38 +0200 
 #
 
 #
 # Global options
 #
-alertdir = /usr/lib/mon/alert.d
-mondir = /usr/lib/mon/mon.d
+alertdir		= /usr/lib/mon/alert.d
+mondir			= /usr/lib/mon/mon.d
 logdir			= /var/log/mon
 historicfile	= /var/log/mon/history.log
-maxprocs = 20
-histlength = 100
+maxprocs		= 20
+histlength		= 100
 randstart		= 60s
 dtlogging		= yes
 dtlogfile		= dtlog
