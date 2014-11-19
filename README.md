@@ -44,6 +44,8 @@ List of default variables available in the inventory:
     mon_admin_email: "alban.andrieu@google.com"
     mon_weekly_email: "team@google.com"
     mon_weekend_email: "{{ mon_admin_email }}"
+    mon_user_enabled: no
+    mon_user: ""
     
     mon_localhost : "albandri"
     mon_custom_group: "test"   
@@ -53,6 +55,7 @@ List of default variables available in the inventory:
     mon_hostgroup_localhost : "{{ mon_localhost }}"
     mon_hostgroup_www : "{{ mon_localhost }}"
     mon_hostgroup_fs : "{{ mon_localhost }}"
+    mon_hostgroup_gw : "{{ mon_localhost }}"
     mon_hostgroup_shell : "{{ mon_localhost }}"
     mon_hostgroup_ntp : "{{ mon_localhost }}"
     mon_hostgroup_dns : "{{ mon_localhost }}"
