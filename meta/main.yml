@@ -27,7 +27,8 @@ ansigenome_info:
 #  github_url: "https://github.com/AlbanAndrieu/ansible-mon"
 #  git_branch: "master"
   galaxy_id: '2130'
-  galaxy_user:  'alban.andrieu'
+  galaxy_user: 'alban.andrieu'
+  galaxy_name: 'mon'
 
   travis: True
 

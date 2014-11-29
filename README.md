@@ -1,4 +1,4 @@
-## mon
+## alban.andrieu.mon
 
 [![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-mon.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-mon) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-mon.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-mon/tree/master) [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.mon-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/2130) [![Platforms](http://img.shields.io/badge/platforms-debian%20/%20ubuntu-lightgrey.svg?style=flat)](#)
 
@@ -23,8 +23,7 @@ To install it, run:
 List of default variables available in the inventory:
 
 ```yaml
-    ---
-    mon_enabled: yes                       # Enable module
+        mon_enabled: yes                       # Enable module
     # Repository states: present or absent
     mon_repository_state: present
     
@@ -72,7 +71,7 @@ List of default variables available in the inventory:
 
 ### Authors and license
 
-`mon` role was written by:
+`alban.andrieu.mon` role was written by:
 - [Alban Andrieu](fr.linkedin.com/in/nabla/) | [e-mail](mailto:alban.andrieu@free.fr) | [Twitter](https://twitter.com/AlbanAndrieu) | [GitHub](https://github.com/AlbanAndrieu)
 - License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
 
