@@ -16,7 +16,9 @@ To install it, run:
 
     ansible-galaxy install alban.andrieu.mon
 
+### Role dependencies
 
+- `geerlingguy.apache`
 
 ### Role variables
 

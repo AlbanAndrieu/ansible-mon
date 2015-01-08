@@ -47,6 +47,10 @@
   tags: mon
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and mon_user_enabled
   
+- name: apache | Enable some required modules (cgi)
+  action: command a2enmod cgi
+  tags: apache  
+  
 - name: mon | Start the mon service
   service: name=mon state=started enabled=true
   tags: service

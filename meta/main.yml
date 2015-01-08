@@ -1,6 +1,9 @@
 ---
-dependencies: []
 
+#dependencies: []
+dependencies: 
+  - { role: geerlingguy.apache }
+  
 galaxy_info:
   author: Alban Andrieu
   description: 'Install and configure Mon service'
