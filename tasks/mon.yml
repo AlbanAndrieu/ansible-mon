@@ -2,17 +2,17 @@
 # This playbook contains common plays that will be run on all nodes.
 
 - name: mon | Check user  
-  user: name={{mon_owner}} state=present
+  user: name={{ mon_owner }} state=present
   
 - name: mon | Check user home directory
-  stat: path={{mon_owner_home}}
+  stat: path={{ mon_owner_home }}
   register: home_present
 
 - debug: msg=" mon | Path exists and is a directory"
   when: home_present.stat.isdir is defined and home_present.stat.isdir == true 
 
 - name: Install mon perl tools
-  apt: pkg={{ item }} update_cache=yes state={{ mon_pkg_state }}
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state={{ mon_pkg_state|default('present') }} update_cache=yes"  
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags: package
   with_items:
@@ -31,8 +31,7 @@
 #    - SNMP::Session
 
 - name: mon | Install mon
-  apt: pkg={{ item }} update_cache=yes state={{ mon_pkg_state }}
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state={{ mon_pkg_state|default('present') }} update_cache=yes"    
   tags: mon_setup
   with_items:
    - mon
